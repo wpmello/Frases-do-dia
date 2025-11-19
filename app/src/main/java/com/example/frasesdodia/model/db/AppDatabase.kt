@@ -1,11 +1,11 @@
-package com.example.frasesdodia.data.db
+package com.example.frasesdodia.model.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.frasesdodia.data.db.dao.PhraseDao
-import com.example.frasesdodia.data.db.entity.PhraseEntity
+import com.example.frasesdodia.model.db.dao.PhraseDao
+import com.example.frasesdodia.model.db.entity.PhraseEntity
 
 @Database(entities = [PhraseEntity::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {

@@ -61,6 +61,11 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.compiler)
 
+    //Dagger - Hilt
+    implementation (libs.hilt.android)
+    implementation (libs.hilt.android.compiler)
+    implementation (libs.fragment.ktx)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -1,15 +1,15 @@
-package com.example.frasesdodia.data.db.dao
+package com.example.frasesdodia.model.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.frasesdodia.data.db.entity.PhraseEntity
+import com.example.frasesdodia.model.db.entity.PhraseEntity
 
 @Dao
 interface PhraseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(phrase: PhraseEntity)
+    suspend fun save(phrase: PhraseEntity)
 
     @Query("SELECT * FROM phrases")
     suspend fun getAll(): List<PhraseEntity>

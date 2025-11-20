@@ -8,7 +8,6 @@ import com.example.frasesdodia.model.domain.Phrase
 import com.example.frasesdodia.model.remote.PhraseRemoteConfigManager
 import com.example.frasesdodia.model.repository.PhraseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -35,7 +34,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun fetchAndSavePhrasesFromRemoteConfig() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             remoteConfigManager.fetchAndActivateConfig { phrases ->
                 if (phrases != null && phrases.isNotEmpty()) {
                     viewModelScope.launch {
@@ -51,13 +50,13 @@ class MainViewModel @Inject constructor(
     fun processIntent(intent: PhraseIntent) {
         when (intent) {
             is PhraseIntent.AddToFavorite -> {
-                viewModelScope.launch(Dispatchers.IO) {
+                viewModelScope.launch {
                     repository.addToFavorite(intent.phrase)
                 }
             }
 
             is PhraseIntent.RemoveFromFavorite -> {
-                viewModelScope.launch(Dispatchers.IO) {
+                viewModelScope.launch {
                     repository.removeFromFavorite(intent.favoritePhrase)
                 }
             }

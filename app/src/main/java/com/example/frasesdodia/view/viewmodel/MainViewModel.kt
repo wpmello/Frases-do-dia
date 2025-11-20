@@ -3,14 +3,17 @@ package com.example.frasesdodia.view.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.frasesdodia.intent.PhraseIntent
+import com.example.frasesdodia.model.domain.FavoritePhrase
 import com.example.frasesdodia.model.domain.Phrase
 import com.example.frasesdodia.model.remote.PhraseRemoteConfigManager
 import com.example.frasesdodia.model.repository.PhraseRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,6 +25,10 @@ class MainViewModel @Inject constructor(
 
     private val _currentPhrase = MutableStateFlow<Phrase?>(null)
     val currentPhrase: StateFlow<Phrase?> = _currentPhrase.asStateFlow()
+
+    val favoritePhrases: StateFlow<List<FavoritePhrase>> = repository.getAllFavorites()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), emptyList())
+
 
     init {
         fetchAndSavePhrasesFromRemoteConfig()
@@ -43,12 +50,17 @@ class MainViewModel @Inject constructor(
 
     fun processIntent(intent: PhraseIntent) {
         when (intent) {
-            is PhraseIntent.Save -> {
+            is PhraseIntent.AddToFavorite -> {
                 viewModelScope.launch(Dispatchers.IO) {
-                    repository.save(intent.phrase)
+                    repository.addToFavorite(intent.phrase)
                 }
             }
-            else -> { }
+
+            is PhraseIntent.RemoveFromFavorite -> {
+                viewModelScope.launch(Dispatchers.IO) {
+                    repository.removeFromFavorite(intent.favoritePhrase)
+                }
+            }
         }
     }
 }

@@ -38,6 +38,7 @@ import com.example.frasesdodia.model.domain.Phrase
 fun DailyQuoteScreen(
     currentPhrase: Phrase?,
     isLiked: Boolean,
+    isSaved: Boolean,
     onLikeClick: () -> Unit,
     onSaveClick: (PhraseIntent) -> Unit,
     modifier: Modifier = Modifier
@@ -115,12 +116,13 @@ fun DailyQuoteScreen(
 
             IconButton(onClick = {
                 currentPhrase?.let {
-                    onSaveClick.invoke(PhraseIntent.Save(it))
+                    onSaveClick.invoke(PhraseIntent.AddToFavorite(it))
                 }
             }) {
                 Icon(
                     imageVector = Icons.Default.Save,
                     contentDescription = "Save",
+                    tint = if (isSaved) Color.Green else Color.Gray,
                     modifier = Modifier.size(40.dp)
                 )
             }

@@ -4,12 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.frasesdodia.model.db.dao.FavoritePhraseDao
 import com.example.frasesdodia.model.db.dao.PhraseDao
+import com.example.frasesdodia.model.db.entity.FavoritePhraseEntity
 import com.example.frasesdodia.model.db.entity.PhraseEntity
 
-@Database(entities = [PhraseEntity::class], version = 1)
+@Database(entities = [PhraseEntity::class, FavoritePhraseEntity::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun phraseDao(): PhraseDao
+    abstract fun favoritePhraseDao(): FavoritePhraseDao
 
     companion object {
         @Volatile

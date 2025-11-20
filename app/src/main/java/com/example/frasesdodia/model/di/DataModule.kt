@@ -2,6 +2,7 @@ package com.example.frasesdodia.model.di
 
 import android.content.Context
 import com.example.frasesdodia.model.db.AppDatabase
+import com.example.frasesdodia.model.db.dao.FavoritePhraseDao
 import com.example.frasesdodia.model.db.dao.PhraseDao
 import com.example.frasesdodia.model.remote.PhraseRemoteConfigManager
 import com.example.frasesdodia.model.repository.PhraseRepository
@@ -35,8 +36,14 @@ object DataModule {
 
     @Singleton
     @Provides
-    fun providesPhraseRepository(phraseDao: PhraseDao): PhraseRepository {
-        return PhraseRepositoryImpl(phraseDao)
+    fun providesFavoritePhraseDao(database: AppDatabase): FavoritePhraseDao {
+        return database.favoritePhraseDao()
+    }
+
+    @Singleton
+    @Provides
+    fun providesPhraseRepository(phraseDao: PhraseDao, favoritePhraseDao: FavoritePhraseDao): PhraseRepository {
+        return PhraseRepositoryImpl(phraseDao, favoritePhraseDao)
     }
 
     @Provides

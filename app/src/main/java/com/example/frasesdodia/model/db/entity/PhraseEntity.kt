@@ -6,16 +6,16 @@ import com.example.frasesdodia.model.domain.Phrase
 
 @Entity("phrases")
 data class PhraseEntity(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     val id: Int,
     val text: String,
     val author: String,
-    val date: String,
+    val date: String
 )
 
 fun PhraseEntity.toPhrase() = Phrase(
     id = id,
     text = text,
     author = author,
-    date = date,
+    date = date
 )

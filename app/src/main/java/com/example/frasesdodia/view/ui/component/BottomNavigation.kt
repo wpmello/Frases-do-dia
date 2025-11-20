@@ -8,15 +8,25 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
+import com.example.frasesdodia.view.ui.navigation.route.Screen
 
 @Composable
-fun BottomNavigation() {
+fun BottomNavigation(navController: NavController) {
     NavigationBar(contentColor = MaterialTheme.colorScheme.onPrimary) {
         NavigationBarItem(
             icon = { Icon(Icons.Default.ListAlt, contentDescription = null) },
             label = { Text("Frases Favotiras") },
             selected = true,
-            onClick = { /* Navegar */ }
+            onClick = {
+                navController.navigate(Screen.Favorites.route) {
+                    launchSingleTop = true
+                    restoreState = true
+                    popUpTo(navController.graph.startDestinationId) {
+                        saveState = true
+                    }
+                }
+            }
         )
     }
 }

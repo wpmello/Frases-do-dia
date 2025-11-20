@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "897637216912",
+    "project_id": "frases-do-dia-2f6ff",
+    "storage_bucket": "frases-do-dia-2f6ff.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:897637216912:android:7c71c42d8feac32800de15",
+        "android_client_info": {
+          "package_name": "com.example.frasesdodia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlGPxM6b194EVei-oqnfvuNI73t8uQIUo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

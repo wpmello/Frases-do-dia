@@ -11,6 +11,9 @@ interface PhraseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun save(phrase: PhraseEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun saveAll(phrases: List<PhraseEntity>)
+
     @Query("SELECT * FROM phrases")
     suspend fun getAll(): List<PhraseEntity>
 

@@ -1,4 +1,4 @@
-package com.example.frasesdodia.ui.theme
+package com.example.frasesdodia.view.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

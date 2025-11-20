@@ -1,4 +1,4 @@
-package com.example.frasesdodia.ui.component
+package com.example.frasesdodia.view.ui.component
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ListAlt

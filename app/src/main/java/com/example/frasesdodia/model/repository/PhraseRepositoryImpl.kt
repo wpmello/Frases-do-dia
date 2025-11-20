@@ -4,17 +4,33 @@ import com.example.frasesdodia.model.db.dao.PhraseDao
 import com.example.frasesdodia.model.db.entity.toPhrase
 import com.example.frasesdodia.model.domain.Phrase
 import com.example.frasesdodia.model.domain.toPhraseEntity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class PhraseRepositoryImpl(private val phraseDao: PhraseDao) : PhraseRepository {
+class PhraseRepositoryImpl @Inject constructor(
+    private val phraseDao: PhraseDao
+) : PhraseRepository {
     override suspend fun save(phrase: Phrase) {
-        phraseDao.save(phrase.toPhraseEntity())
+        withContext(Dispatchers.IO) {
+            phraseDao.save(phrase.toPhraseEntity())
+        }
     }
 
-    override suspend fun getAll(): List<Phrase> {
-        return phraseDao.getAll().map { it.toPhrase() }
+    override suspend fun saveAll(phrases: List<Phrase>) {
+        withContext(Dispatchers.IO) {
+            phraseDao.saveAll(phrases.map { it.toPhraseEntity() })
+        }
     }
+
+    override suspend fun getAll(): List<Phrase> = withContext(Dispatchers.IO) {
+        phraseDao.getAll().map { it.toPhrase() }
+    }
+
 
     override suspend fun delete(id: Int) {
-        phraseDao.delete(id)
+        withContext(Dispatchers.IO) {
+            phraseDao.delete(id)
+        }
     }
 }
